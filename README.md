@@ -1,5 +1,5 @@
 # This Project Environment
-Spring boot, Java 1.8, embedded tomcat <br>
+Spring boot 1.5.4, Java 1.8, embedded tomcat <br>
 
 spring boot - Selected Dependencies
 
