@@ -141,5 +141,6 @@ plugins 태그 안에 해당 플러그인 태그를 추가해 주자.(플러그�
                 </executions>
             </plugin>
 ```
-- 주의할 점이 있는데, maven-resources-plugin 이 asciidoctor-maven-plugin 이 실행이 된 이후에 실행이 되도록 해줘야함. 그래서 asciidoctor-maven-plugin 을 보면, prepare-package가 지정이 된것이 보인다.
+- Asciidoctor는 AsciiDoc 콘텐츠를 HTML5, DocBook 5 (또는 4.5) 및 기타 형식으로 변환하기위한 빠른 텍스트 프로세서 및 게시 툴체인입니다.
+- 주의) maven-resources-plugin 이 asciidoctor-maven-plugin 이 실행이 된 이후에 실행이 되도록 해줘야함. 그래서 asciidoctor-maven-plugin 을 보면, prepare-package가 지정이 된것이 보인다.
 
