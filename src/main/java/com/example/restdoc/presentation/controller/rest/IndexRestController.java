@@ -21,6 +21,7 @@ public class IndexRestController {
     public ResponseEntity getIndexRest() {
 
         return new ResponseEntity("REST!!", HttpStatus.OK);
+        //result : REST!!
     }
 
     @RequestMapping(value = "/member", method = RequestMethod.GET, produces = "application/json")
@@ -31,6 +32,7 @@ public class IndexRestController {
         }
 
         return new ResponseEntity(memberDomainList, HttpStatus.OK);
+        //result : [{"name":"TestName-0","age":0},{"name":"TestName-1","age":1},{"name":"TestName-2","age":2}]
     }
 
 }

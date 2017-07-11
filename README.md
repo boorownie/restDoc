@@ -17,4 +17,75 @@ Spring REST Docs Project <br>
 
 - 개요 <br>
 스프링 Rest Docs를 사용 및 예제코드 작성. <br>
-RESTful 서비스를 문서화 해보자.(스프링 REST Docs의 목표)
+RESTful 서비스를 문서화 해보자.(스프링 REST Docs의 목표) <br>
+Spring REST Docs는 RESTful 서비스를 문서화 하는데 도움이 된다. <br>
+
+- 작업 <br>
+pom.xml 에 <br>
+ ```
+     <dependency>
+     <groupId>org.springframework.restdocs</groupId>
+     <artifactId>spring-restdocs-mockmvc</artifactId>
+     <version>1.2.1.RELEASE</version>
+     </dependency>
+ ```
+위 라이브러리를 추가. <br>
+
+pom.xml 에 빌드 설정<br>
+Spring REST Docs는 Asciidoctor를 사용. 아이스닥터는 평문을 처리하여, HTML문서를 생성해 준다. <br>
+
+```
+<properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <snippetsDirectory>${project.build.directory}/generated-snippets</snippetsDirectory>
+</properties>
+```
+
+위와 같이, 프로퍼티스에 스니펫디렉토리를 추가해 준다. (생성된 코드조각을 output 경로를 설정)
+```
+<snippetsDirectory>${project.build.directory}/generated-snippets</snippetsDirectory>
+```
+
+```
+<plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-surefire-plugin</artifactId>
+	<configuration>
+   		<includes>
+		    <include>**/*Tests.java</include>
+		    <include>**/*Test.java</include>
+    	</includes>
+	    <excludes>
+		    <exclude>**/Abstract*.java</exclude>
+	    </excludes>
+	</configuration>
+</plugin>
+```
+부트로 프로젝트를 구성하면, 위와 같이 starter dependency에 플러그인이 있겠지만, 따로 붙여넣기를 하겠다.
+
+```
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-surefire-plugin</artifactId>
+  <version>2.20</version>
+  <configuration>
+     <includes>
+       <include>**/*Tests.java</include>
+       <include>**/*Test.java</include>
+       <include>**/*Documentation.java</include>
+     </includes>
+     <excludes>
+       <exclude>**/Abstract*.java</exclude>
+     </excludes>
+  </configuration>
+</plugin>
+```
+plugins 태그 안에 해당 플러그인 태그를 추가해 주자.(플러그인에, Documentation.java로 끝나는 이름을 가진 파일들을 포함하도록 설정) <br>
+* Surefire Plugin 은 unit test들을 실행하기 위해 build lifecycle의 test phase동안 사용되어 진다. 
+* 그리고 txt, xml 포멧의 리포트파일을 제공. <br>
+
+
+
+

@@ -17,13 +17,13 @@ public class IndexController {
 
     @RequestMapping(value = "/index_rest_doc", method = RequestMethod.GET)
     public ModelAndView getIndexRestDoc(HttpSession session) {
-        ModelAndView mav = new ModelAndView("rest_doc/index.html");
+        ModelAndView mav = new ModelAndView("rest_docs/index.html");
         return mav;
     }
 
     @RequestMapping(value = "/member_rest_doc", method = RequestMethod.GET)
     public ModelAndView getMemberRestDoc(HttpSession session) {
-        ModelAndView mav = new ModelAndView("rest_doc/member.html");
+        ModelAndView mav = new ModelAndView("rest_docs/member.html");
         return mav;
     }
 
