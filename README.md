@@ -143,7 +143,52 @@ plugins 태그 안에 해당 플러그인 태그를 추가해 주자.(플러그�
 ```
 - Asciidoctor는 AsciiDoc 콘텐츠를 HTML5, DocBook 5 (또는 4.5) 및 기타 형식으로 변환하기위한 빠른 텍스트 프로세서 및 게시 툴체인입니다.
 - 주의) maven-resources-plugin 이 asciidoctor-maven-plugin 이 실행이 된 이후에 실행이 되도록 해줘야함. 그래서 asciidoctor-maven-plugin 을 보면, prepare-package가 지정이 된것이 보인다.
+- 주의) boot에서 spring-restdocs-mockmvc 추가하면, 메소드를 찾지못해서 정상작동이 되지않는 경우가 있는데, spring-restdocs-core를 같이 추가해주면 정상작동.(또는 부트 구성 시, 체크해서 포함시켰으면 해당 라이브러리 추가 안해도 됨)
+```
+<!-- Add spring-restdocs-mockmvc -->
+        <dependency>
+            <groupId>org.springframework.restdocs</groupId>
+            <artifactId>spring-restdocs-mockmvc</artifactId>
+            <version>1.2.1.RELEASE</version>
+            <scope>test</scope>
+        </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.springframework.restdocs/spring-restdocs-core -->
+        <dependency>
+            <groupId>org.springframework.restdocs</groupId>
+            <artifactId>spring-restdocs-core</artifactId>
+            <version>1.2.1.RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+```
+<br>
+- 생성된 snippet을 사용하기 위해서는, 사용하기 전에 .adoc 소스 파일을 만들어야 함.
+- .adoc 파일 경로는 src/main/asciidoc -> default
+
+```
+== 사용자 리스트 조회 [get]
+  
+  사용자를조회
+  
+  include::{snippets}/index/curl-request.adoc[]
+  
+  === 요청 구조
+  
+  ==== 요청 파라미터들
+  
+  include::{snippets}/index/http-request.adoc[]
+  
+  === 응답 구조
+  
+  ==== 응답 파라미터들
+  
+  include::{snippets}/index/http-response.adoc[]
+```
+코드조각(snippets)을 사용할려면, include 매크로를 사용하면 된다.<br>
+참고 : http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/#include-files
 <br>
 
 위 과정이 끝났으면, RESTDocsDocumentation Test 클래스를 통해서, Spring MVC 테스트가 어떻게 설정이 되어있는지 확인.
+<br>
+참고 : 
+https://spring.io/guides/gs/testing-restdocs/
