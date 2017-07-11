@@ -1,61 +1,33 @@
 package com.example.restdoc;
 
-import org.junit.Before;
-import org.junit.Rule;
+import com.example.restdoc.presentation.controller.rest.IndexRestController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
-import org.springframework.restdocs.JUnitRestDocumentation;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * Created by phpbae on 2017-07-11.
+ * boot 기반 Mvc Test설정
  */
 
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
-public class RESTDocsDocumentation {
+@WebMvcTest(IndexRestController.class)
+@AutoConfigureRestDocs(outputDir = "target/snippets")
+public class RESTDocs2Documentation {
 
     @Autowired
-    private WebApplicationContext webApplicationContext;
-
     private MockMvc mockMvc;
-
-    /**
-     * 문서 코드조각을 생성(snippets)
-     *
-     * @Rule = 기본적으로 각각의 테스트에 부가적인 기능을 추가 또는 확장 시켜줌
-     * 기본적인 룰 : TemporaryFolder / ExternalResource / ErrorCollector / ExpectedException / Timeout
-     */
-    @Rule
-    public final JUnitRestDocumentation restDocumentation =
-            new JUnitRestDocumentation("target/generated-snippets"); //JUnitRestDocumentation 인스턴스를 생성 할 때 출력 디렉토리를 제공하여 기본값을 재정의 할 수 있습니다.
-
-    @Test
-    public void simpleTest() {
-        System.out.println("Call Test Method..");
-    }
-
-    /**
-     * MockMvc 컨텍스트를 설정하여  문서를 생성하도록 구성.
-     */
-    @Before
-    public void setUp() {
-        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.webApplicationContext)
-                .apply(documentationConfiguration(this.restDocumentation))
-                .build();
-    }
 
     //mockMvc 인스턴스를 생성했으니, RESTful 서비스를 호출하고, 요청과 응답을 문서화
     @Test
@@ -72,7 +44,15 @@ public class RESTDocsDocumentation {
         this.mockMvc.perform(get("/index_rest/member")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andDo(document("member"));
+                .andDo(document("member")); //식별자 Dir에 스니펫이 생성.
+    }
+
+    @Test
+    public void getRestIndex() throws Exception {
+        this.mockMvc.perform(get("/index_rest/index?testNum=1")
+                .accept(MediaType.TEXT_HTML_VALUE)) //서비스의 URL 루트 표시 및 어떠한 응답이 필요함을 나타냄
+                .andExpect(status().isOk())
+                .andDo(print());
     }
 
 }

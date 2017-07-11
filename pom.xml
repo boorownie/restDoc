@@ -57,14 +57,21 @@
             <scope>test</scope>
         </dependency>
 
-
         <!-- Add spring-restdocs-mockmvc -->
         <dependency>
             <groupId>org.springframework.restdocs</groupId>
             <artifactId>spring-restdocs-mockmvc</artifactId>
             <version>1.2.1.RELEASE</version>
+            <scope>test</scope>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.springframework.restdocs/spring-restdocs-core -->
+        <dependency>
+            <groupId>org.springframework.restdocs</groupId>
+            <artifactId>spring-restdocs-core</artifactId>
+            <version>1.2.1.RELEASE</version>
+            <scope>test</scope>
+        </dependency>
 
     </dependencies>
 
@@ -109,7 +116,7 @@
                             <doctype>book</doctype>
                             <attributes>
                                 <!--  생성 된 snippets 스니펫을 문서에 포함시킬 때 사용할 수있는 명명 된 속성을 정의-->
-                                <snippets>${project.build.directory}/generated-snippets</snippets>
+                                <snippets>${project.build.directory}/snippets</snippets>
                             </attributes>
                         </configuration>
                     </execution>
