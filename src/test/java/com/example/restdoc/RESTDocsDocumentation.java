@@ -27,9 +27,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 public class RESTDocsDocumentation {
 
+    //Spring Web MVC 는 "Front Controller" 디자인 패턴
+    //Front Controller 가 spring 에서 DispatcherServlet 의 역할을함.( DispatcherServlet 도 하나의 서블릿(HttpServlet 을 상속받아 만들어졌음)
     @Autowired
     private WebApplicationContext webApplicationContext;
 
+    //클라이언트에서 요청 내용을 컨트롤러에서 받아 처리하는것과 같은 테스트를 진행하기 위한 인스턴스.
+    // 결과값을 status 코드로 테스트 통과 여부 결정
     private MockMvc mockMvc;
 
     /**
@@ -48,7 +52,7 @@ public class RESTDocsDocumentation {
     }
 
     /**
-     * MockMvc 컨텍스트를 설정하여  문서를 생성하도록 구성.
+     * MockMvc 컨텍스트를 설정하여 문서를 생성하도록 구성.
      */
     @Before
     public void setUp() {
@@ -69,10 +73,9 @@ public class RESTDocsDocumentation {
     //mockMvc 인스턴스를 생성했으니, RESTful 서비스를 호출하고, 요청과 응답을 문서화
     @Test
     public void makeMember() throws Exception {
-        this.mockMvc.perform(get("/index_rest/member")
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andDo(document("member"));
+        this.mockMvc.perform(get("/index_rest/member").accept(MediaType.APPLICATION_JSON)) ////MockMvc .perform(@NotNull org.springframework.test.web.servlet.RequestBuilder requestBuilder) .accept() -> MockHttpServletRequestBuilder
+                .andExpect(status().isOk()) //ResultActions
+                .andDo(document("member")); //ResultActions
     }
 
 }
