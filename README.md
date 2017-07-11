@@ -162,7 +162,7 @@ plugins 태그 안에 해당 플러그인 태그를 추가해 주자.(플러그�
         </dependency>
 ```
 <br>
-- 생성된 snippet을 사용하기 위해서는, 사용하기 전에 .adoc 소스 파일을 만들어야 함.
+- 생성된 snippet을 사용하기 위해서는, 사용하기 전에 .adoc 소스 파일을 만들어야 함. <br>
 - .adoc 파일 경로는 src/main/asciidoc -> default
 
 ```
