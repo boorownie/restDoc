@@ -188,9 +188,9 @@ plugins 태그 안에 해당 플러그인 태그를 추가해 주자.(플러그�
 참고 : http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/#include-files
 <br>
 
-위 과정이 끝났으면, RESTDocsDocumentation Test 클래스를 통해서, Spring MVC 테스트가 어떻게 설정이 되어있는지 확인.
-execute maven goal = clean install 
-<br>
+위 과정이 끝났으면, RESTDocsDocumentation Test 클래스를 통해서, Spring MVC 테스트가 어떻게 설정이 되어있는지 확인.<br>
+execute maven goal = clean install <br>
+만약, Test를 skip 하고 싶다면, clean install _-Dmaven.test.skip=true_ <br>
 참고 : 
 https://spring.io/guides/gs/testing-restdocs/
 
