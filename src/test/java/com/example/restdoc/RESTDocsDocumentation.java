@@ -36,15 +36,13 @@ public class RESTDocsDocumentation {
     private MockMvc mockMvc;
 
     /**
-     * 문서 코드조각을 생성
+     * 문서 코드조각을 생성(snippets)
      * @Rule = 기본적으로 각각의 테스트에 부가적인 기능을 추가 또는 확장 시켜줌
      * 기본적인 룰 : TemporaryFolder / ExternalResource / ErrorCollector / ExpectedException / Timeout
      */
     @Rule
-    public final JUnitRestDocumentation restDocumentation = new JUnitRestDocumentation("target/generated-snippets");
-    private RestDocumentationResultHandler document;
+    public final JUnitRestDocumentation restDocumentation = new JUnitRestDocumentation("target/generated-snippets"); //JUnitRestDocumentation 인스턴스를 생성 할 때 출력 디렉토리를 제공하여 기본값을 재정의 할 수 있습니다.
 
-    @Ignore
     @Test
     public void simpleTest() {
         System.out.println("Call Test Method..");
@@ -55,27 +53,26 @@ public class RESTDocsDocumentation {
      */
     @Before
     public void setUp() {
-        this.document = document("{method-name}/", preprocessRequest(prettyPrint()),
-                preprocessResponse(prettyPrint()));
 
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.webApplicationContext)
                 .apply(documentationConfiguration(this.restDocumentation))
-                .alwaysDo(this.document)
                 .build();
     }
 
+    //mockMvc 인스턴스를 생성했으니, RESTful 서비스를 호출하고, 요청과 응답을 문서화
     @Test
     public void makeIndex() throws Exception {
-        this.mockMvc.perform(get("/index_rest/index").accept(MediaType.TEXT_HTML_VALUE))
-                .andExpect(status().isOk())
-                .andDo(this.document);
+        this.mockMvc.perform(get("/index_rest/index").accept(MediaType.TEXT_HTML_VALUE)) //서비스의 URL 루트 표시 및 어떠한 응답이 필요함을 나타냄
+                .andExpect(status().isOk()) //서비스가 만들어내는 원하는 응답을 결정
+                .andDo(document("index/")); //RestDocumentationResultHandler
     }
 
+    //mockMvc 인스턴스를 생성했으니, RESTful 서비스를 호출하고, 요청과 응답을 문서화
     @Test
     public void makeMember() throws Exception {
         this.mockMvc.perform(get("/index_rest/member").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andDo(this.document);
+                .andDo(document("member/"));
     }
 
 }

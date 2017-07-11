@@ -1,5 +1,5 @@
 = RESTful Notes API Guide
-Tester : 배창현;
+Tester : phpbae;
 :doctype: book
 :icons: font
 :source-highlighter: highlightjs
@@ -63,16 +63,16 @@ use of HTTP status codes.
 
 사용자를조회
 
-include::{snippets}/rest_doc/curl-request.adoc[]
+include::{snippets}/member/curl-request.adoc[]
 
 === 요청 구조
 
 ==== 요청 파라미터들
 
-include::{snippets}/rest_doc/http-request.adoc[]
+include::{snippets}/member/http-request.adoc[]
 
 === 응답 구조
 
 ==== 응답 파라미터들
 
-include::{snippets}/rest_doc/http-response.adoc[]
+include::{snippets}/member/http-response.adoc[]

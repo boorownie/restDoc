@@ -17,14 +17,14 @@ import java.util.List;
 @RequestMapping("/index_rest")
 public class IndexRestController {
 
-    @RequestMapping(value = "/index", method = RequestMethod.GET, produces = "text/html")
+    @RequestMapping(value = "index", method = RequestMethod.GET, produces = "text/html")
     public ResponseEntity getIndexRest() {
 
         return new ResponseEntity("REST!!", HttpStatus.OK);
         //result : REST!!
     }
 
-    @RequestMapping(value = "/member", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "member", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity getMemberRest() {
         List<MemberDomain> memberDomainList = new ArrayList<>();
         for (int i = 0; i < 3; i++) {

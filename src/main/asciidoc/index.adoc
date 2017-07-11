@@ -1,5 +1,5 @@
 = RESTful Notes API Guide
-Tester : 배창현;
+Tester : phpbae;
 :doctype: book
 :icons: font
 :source-highlighter: highlightjs
