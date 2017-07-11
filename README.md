@@ -86,6 +86,60 @@ plugins 태그 안에 해당 플러그인 태그를 추가해 주자.(플러그�
 * Surefire Plugin 은 unit test들을 실행하기 위해 build lifecycle의 test phase동안 사용되어 진다. 
 * 그리고 txt, xml 포멧의 리포트파일을 제공. <br>
 
+나머지 플러그인을 추가해주자.(asciidoctor, maven-resources-plugin)
 
-
+```
+<!-- Add asciidoctor-maven-plugin -->
+            <plugin>
+                <groupId>org.asciidoctor</groupId>
+                <artifactId>asciidoctor-maven-plugin</artifactId>
+                <version>1.5.5</version>
+                <executions>
+                    <execution>
+                        <id>generate-docs</id>
+                        <!-- Using prepare-package allows the documentation to be included in the package. -->
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>process-asciidoc</goal>
+                        </goals>
+                        <configuration>
+                            <backend>html</backend>
+                            <doctype>book</doctype>
+                            <attributes>
+                                <!--  생성 된 snippets 스니펫을 문서에 포함시킬 때 사용할 수있는 명명 된 속성을 정의-->
+                                <snippets>${project.build.directory}/generated-snippets</snippets>
+                            </attributes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            <!-- Add maven-resources-plugin -->
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.7</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <overwrite>true</overwrite>
+                            <outputDirectory>${project.build.outputDirectory}/static/rest_docs</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.build.directory}/generated-docs</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+```
+- 주의할 점이 있는데, maven-resources-plugin 이 asciidoctor-maven-plugin 이 실행이 된 이후에 실행이 되도록 해줘야함. 그래서 asciidoctor-maven-plugin 을 보면, prepare-package가 지정이 된것이 보인다.
 

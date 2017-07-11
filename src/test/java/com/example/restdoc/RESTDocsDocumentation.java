@@ -65,15 +65,15 @@ public class RESTDocsDocumentation {
     }
 
     @Test
-    public void index() throws Exception {
-        this.mockMvc.perform(get("/index").accept(MediaType.APPLICATION_JSON))
+    public void makeIndex() throws Exception {
+        this.mockMvc.perform(get("/index_rest/index").accept(MediaType.TEXT_HTML_VALUE))
                 .andExpect(status().isOk())
                 .andDo(this.document);
     }
 
     @Test
-    public void rest_doc() throws Exception {
-        this.mockMvc.perform(get("/rest_doc").accept(MediaType.APPLICATION_JSON))
+    public void makeMember() throws Exception {
+        this.mockMvc.perform(get("/index_rest/member").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(this.document);
     }
