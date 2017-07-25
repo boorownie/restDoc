@@ -5,7 +5,7 @@ spring boot - Selected Dependencies
 
 Core
 - AOP
-- DebTools
+- DevTools
 - Lombok
 
 Web
